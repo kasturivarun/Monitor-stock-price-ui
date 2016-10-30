@@ -228,6 +228,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h2>"${resultOfAddition}"</h2>
+                        <h2>"${resultOfDeletion}"</h2>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
@@ -246,7 +247,7 @@
                                         <td><c:out value="${stockObject.price}" /></td>
                                         <td>
                                         <form class="form-horizontal" name="deleteCompany" action="deleteCompany" method="GET">
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit" name="IdToDelete" value ="<c:out value="${stockObject.symbol}" />" class="btn btn-danger">
 								          <span class="glyphicon glyphicon-remove"></span>
 								        </button>
 								        </form>

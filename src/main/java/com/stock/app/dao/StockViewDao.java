@@ -76,7 +76,50 @@ public class StockViewDao {
 	return output;
 	}
 
-	public boolean addNewCompany(String action, String symbol) {
+	public boolean addCompany(String action, String symbol) {
+
+		String outputString = "";
+		String url = action+"?symbol="+symbol;
+		InputStream in = null;
+		try {
+			HttpURLConnection urlConnection = conn.getConnection(url);
+				urlConnection.connect();
+				if (urlConnection.getResponseCode() != 200) {
+		   			System.out.println("Failed : HTTP error code : "
+		   					+ urlConnection.getResponseCode());
+		   		}
+		    
+		           in = new BufferedInputStream(urlConnection.getInputStream());
+			
+	        } catch (Exception e ) {
+	 
+	           System.out.println(e.getMessage());
+	 
+	           return false;
+	 
+	        }
+		 try{
+	           BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
+	           StringBuilder sb = new StringBuilder();
+	           String line = null;
+	           while ((line = reader.readLine()) != null) {
+	        	   //System.out.println(line);
+	               sb.append(line + "\n");
+	           }
+	           outputString = sb.toString();
+	           in.close();
+	       } catch (Exception e) {
+	           System.out.println("Buffer Error"+ "Error converting result " + e.toString());
+	       }
+		 if(outputString == "false"){
+			 return false;
+		 }
+		 else{
+			 return true;
+		 }
+	}
+	
+	public boolean deleteCompany(String action, String symbol) {
 
 		String outputString = "";
 		String url = action+"?symbol="+symbol;

@@ -42,4 +42,12 @@ public class StockViewController {
 		 	model.addAttribute("result", service.getAllCompanies("getAllCompanies"));
 		    return "home";
 		   }
+	 	
+	 	@RequestMapping("/deleteCompany")
+		   public String deleteCompany(@RequestParam(value="IdToDelete") String symbol,ModelMap model) {
+	 		
+	 		model.addAttribute("resultOfDeletion", service.deleteCompany("deleteCompany",symbol));
+		 	model.addAttribute("result", service.getAllCompanies("getAllCompanies"));
+		    return "home";
+		   }
 }

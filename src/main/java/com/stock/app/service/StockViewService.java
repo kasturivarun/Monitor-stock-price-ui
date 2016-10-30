@@ -21,7 +21,12 @@ public class StockViewService {
 
 	public boolean addNewCompany(String action, String symbol) {
 		
-		return dao.addNewCompany(action,symbol);
+		return dao.addCompany(action,symbol);
+	}
+
+	public boolean deleteCompany(String action, String symbol) {
+		// TODO Auto-generated method stub
+		return dao.deleteCompany(action,symbol);
 	}
 
 }
