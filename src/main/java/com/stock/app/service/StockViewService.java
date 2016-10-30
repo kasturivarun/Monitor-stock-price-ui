@@ -14,9 +14,14 @@ public class StockViewService {
 	@Autowired
 	StockViewDao dao;
 	
-	public String getAllCompanies(String action) {
+	public List<StockObject> getAllCompanies(String action) {
 		System.out.println("inside service");
 		return dao.getAllCompanies(action);
+	}
+
+	public boolean addNewCompany(String action, String symbol) {
+		
+		return dao.addNewCompany(action,symbol);
 	}
 
 }

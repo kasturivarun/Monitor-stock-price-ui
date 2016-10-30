@@ -213,10 +213,10 @@
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                <form class="form-horizontal" name="getAllCompanies" action="getAllCompanies" method="GET">
+                <form class="form-horizontal" name="addCompany" action="addCompany" method="GET">
                 <div class="col-lg-4">
                 
-                <input class="form-control" placeholder="Add company to the system"> 
+                <input class="form-control" name="symbol" placeholder="Add company to the system">
                 
                 </div>
                 <div class="col-lg-2">
@@ -224,39 +224,35 @@
                 </div>
                 </form>
                 </div>
-                
+                <br>
                 <div class="row">
                     <div class="col-lg-6">
-                        <h2>"${result}"</h2>
+                        <h2>"${resultOfAddition}"</h2>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Pages</th>
-                                        <th>Visits</th>
-                                        <th>% New Visits</th>
-                                        <th>Revenue</th>
+                                        <th>Company ticker symbol</th>
+                                        <th>Company name</th>
+                                        <th>Current price</th>
+                                        <th>Operations</th>
                                     </tr>
                                 </thead>
+                                <c:forEach items="${result}" var="stockObject" varStatus="stock">
                                 <tbody>
                                     <tr>
-                                        <td>/404.html</td>
-                                        <td>23</td>
-                                        <td>34.3%</td>
-                                        <td>$23.52</td>
+                                        <td><c:out value="${stockObject.symbol}" /></td>
+                                        <td><c:out value="${stockObject.companyName}" /></td>
+                                        <td><c:out value="${stockObject.price}" /></td>
+                                        <td>
+                                        <form class="form-horizontal" name="deleteCompany" action="deleteCompany" method="GET">
+                                        <button type="submit" class="btn btn-danger">
+								          <span class="glyphicon glyphicon-remove"></span>
+								        </button>
+								        </form>
+								        </td>
                                     </tr>
-                                    <tr>
-                                        <td>/services.html</td>
-                                        <td>421</td>
-                                        <td>60.3%</td>
-                                        <td>$724.32</td>
-                                    </tr>
-                                    <tr>
-                                        <td>/blog/post.html</td>
-                                        <td>1233</td>
-                                        <td>93.2%</td>
-                                        <td>$126.34</td>
-                                    </tr>
+                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
