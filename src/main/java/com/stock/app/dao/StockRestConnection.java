@@ -11,13 +11,13 @@ public class StockRestConnection {
 
 	static String baseUrl = "http://localhost:8080/";
 	
-	public HttpURLConnection getConnection(String action){
+	public HttpURLConnection getConnection(String action, String requestMethod){
 		HttpURLConnection urlConnection = null;
 		URL url;
 		try {
 			url = new URL(baseUrl+action);
 			urlConnection = (HttpURLConnection) url.openConnection();
-	        urlConnection.setRequestMethod("GET");
+	        urlConnection.setRequestMethod(requestMethod);
 	        urlConnection.setRequestProperty("Accept", "application/json");
 	        
 		} catch (Exception e) {

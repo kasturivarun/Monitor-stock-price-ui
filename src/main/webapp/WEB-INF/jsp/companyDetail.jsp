@@ -39,20 +39,158 @@
     <script type="text/javascript">
      google.load('visualization', '1.0', {'packages':['corechart']});
     google.setOnLoadCallback(drawChart);
- 
+    historyObject = new Object();
    function drawChart() {
-	   var temp=document.getElementById("txt_temp");
-	   var array = "${resultOfGetCompany}";
-	   console.log(array);
-	   for(var i = 0 ; i < "${resultOfGetCompany}".length ; i++){
-		   console.log("${resultOfGetCompany}"[i]);
-	   }
-           
-         
+	   var data = new google.visualization.DataTable();
+	   var stockHistoryTime = new Array();
+	   var stockHistoryPrice = new Array();
+	   <c:forEach items="${resultOfGetCompany}" var="history"> 
+	   		stockHistoryTime.push("${history.lastUpdateTime}");
+	   		stockHistoryPrice.push("${history.lastTradePrice}")
+	   </c:forEach> 
+	  	data.addColumn('datetime', 'Time');
+	  	data.addColumn('number', 'Stock price');
+	  	var dataForTable = new Array();
+	  	
+	  	for(var i = 0 ; i < stockHistoryTime.length ; i++){
+	  		var newDate = new Date(stockHistoryTime[i]); 
+	  		var indivData = new Array();
+	  		indivData.push(new Date(newDate.getFullYear(),newDate.getMonth()+1,newDate.getDay(),newDate.getHours(),newDate.getMinutes(),newDate.getSeconds()));
+	  		indivData.push(parseFloat(stockHistoryPrice[i]));
+	  		console.log(indivData);
+	  		dataForTable.push(indivData);
+	  		console.log(dataForTable);
+	  	}
+	  	var options = {
+	            title: 'Historical stock trend',
+	            width: 900,
+	            height: 500,
+	            hAxis: {
+	              format: 'M/d/yy h:m',
+	              gridlines: {count: 15}
+	            },
+	            vAxis: {
+	              gridlines: {count: 15}
+	            }
+	          };
+	  	data.addRows(dataForTable);
+	  	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+	  	chart.draw(data,options);
    }
+   
+   
  
- 
+   </script>
+  <script type="text/javascript">
+		  $.fn.pageMe = function(opts){
+		    var $this = this,
+		        defaults = {
+		            perPage: 7,
+		            showPrevNext: false,
+		            hidePageNumbers: false
+		        },
+		        settings = $.extend(defaults, opts);
+		    
+		    var listElement = $this;
+		    var perPage = settings.perPage; 
+		    var children = listElement.children();
+		    var pager = $('.pager');
+		    
+		    if (typeof settings.childSelector!="undefined") {
+		        children = listElement.find(settings.childSelector);
+		    }
+		    
+		    if (typeof settings.pagerSelector!="undefined") {
+		        pager = $(settings.pagerSelector);
+		    }
+		    
+		    var numItems = children.size();
+		    var numPages = Math.ceil(numItems/perPage);
+		
+		    pager.data("curr",0);
+		    
+		    if (settings.showPrevNext){
+		        $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
+		    }
+		    
+		    var curr = 0;
+		    while(numPages > curr && (settings.hidePageNumbers==false)){
+		        $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
+		        curr++;
+		    }
+		    
+		    if (settings.showPrevNext){
+		        $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
+		    }
+		    
+		    pager.find('.page_link:first').addClass('active');
+		    pager.find('.prev_link').hide();
+		    if (numPages<=1) {
+		        pager.find('.next_link').hide();
+		    }
+		  	pager.children().eq(1).addClass("active");
+		    
+		    children.hide();
+		    children.slice(0, perPage).show();
+		    
+		    pager.find('li .page_link').click(function(){
+		        var clickedPage = $(this).html().valueOf()-1;
+		        goTo(clickedPage,perPage);
+		        return false;
+		    });
+		    pager.find('li .prev_link').click(function(){
+		        previous();
+		        return false;
+		    });
+		    pager.find('li .next_link').click(function(){
+		        next();
+		        return false;
+		    });
+		    
+		    function previous(){
+		        var goToPage = parseInt(pager.data("curr")) - 1;
+		        goTo(goToPage);
+		    }
+		     
+		    function next(){
+		        goToPage = parseInt(pager.data("curr")) + 1;
+		        goTo(goToPage);
+		    }
+		    
+		    function goTo(page){
+		        var startAt = page * perPage,
+		            endOn = startAt + perPage;
+		        
+		        children.css('display','none').slice(startAt, endOn).show();
+		        
+		        if (page>=1) {
+		            pager.find('.prev_link').show();
+		        }
+		        else {
+		            pager.find('.prev_link').hide();
+		        }
+		        
+		        if (page<(numPages-1)) {
+		            pager.find('.next_link').show();
+		        }
+		        else {
+		            pager.find('.next_link').hide();
+		        }
+		        
+		        pager.data("curr",page);
+		      	pager.children().removeClass("active");
+		        pager.children().eq(page+1).addClass("active");
+		    
+		    }
+		};
+		
+		$(document).ready(function(){
+		    
+		  $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:6});
+		    
+		});
   </script>
+  
   
 <body>
 
@@ -111,8 +249,9 @@
                                         
                                     </tr>
                                 </thead>
+                                
+                                <tbody id="myTable">
                                 <c:forEach items="${resultOfGetCompany}" var="stockObject" varStatus="stock">
-                                <tbody>
                                     <tr>
                                         <td><c:out value="${stockObject.lastUpdateTime}" /></td>
                                         <td><c:out value="${stockObject.lastTradePrice}" /></td>
@@ -121,6 +260,9 @@
                                     </tbody>
                          </table>
                          </div>
+                         <div class="col-md-12 text-center">
+					      <ul class="pagination pagination-lg pager" id="myPager"></ul>
+					      </div>
                          </div>
                          </div>
                          

@@ -35,7 +35,7 @@ public class StockViewDao {
 		InputStream in = null;
 		String outputString = "";
 		try {
-		HttpURLConnection urlConnection = conn.getConnection(action);
+		HttpURLConnection urlConnection = conn.getConnection(action,"GET");
 			urlConnection.connect();
 			if (urlConnection.getResponseCode() != 200) {
 	   			System.out.println("Failed : HTTP error code : "
@@ -88,7 +88,7 @@ public class StockViewDao {
 		String url = action+"?symbol="+symbol;
 		InputStream in = null;
 		try {
-			HttpURLConnection urlConnection = conn.getConnection(url);
+			HttpURLConnection urlConnection = conn.getConnection(url,"POST");
 				urlConnection.connect();
 				if (urlConnection.getResponseCode() != 200) {
 		   			System.out.println("Failed : HTTP error code : "
@@ -131,7 +131,7 @@ public class StockViewDao {
 		String url = action+"?symbol="+symbol;
 		InputStream in = null;
 		try {
-			HttpURLConnection urlConnection = conn.getConnection(url);
+			HttpURLConnection urlConnection = conn.getConnection(url,"DELETE");
 				urlConnection.connect();
 				if (urlConnection.getResponseCode() != 200) {
 		   			System.out.println("Failed : HTTP error code : "
@@ -175,7 +175,7 @@ public class StockViewDao {
 		String url = action+"?symbol="+symbol;
 		String outputString = "";
 		try {
-		HttpURLConnection urlConnection = conn.getConnection(url);
+		HttpURLConnection urlConnection = conn.getConnection(url,"GET");
 			urlConnection.connect();
 			if (urlConnection.getResponseCode() != 200) {
 	   			System.out.println("Failed : HTTP error code : "
