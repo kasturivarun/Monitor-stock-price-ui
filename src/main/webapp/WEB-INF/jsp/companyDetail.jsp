@@ -66,11 +66,11 @@
 	            width: 900,
 	            height: 500,
 	            hAxis: {
-	              format: 'M/d/yy h:m',
-	              gridlines: {count: 15}
+	              format: 'M/d/yy h:m'
+	    
 	            },
 	            vAxis: {
-	              gridlines: {count: 15}
+	             
 	            }
 	          };
 	  	data.addRows(dataForTable);
@@ -87,7 +87,7 @@
 		        defaults = {
 		            perPage: 7,
 		            showPrevNext: false,
-		            hidePageNumbers: false
+		            hidePageNumbers: true
 		        },
 		        settings = $.extend(defaults, opts);
 		    
