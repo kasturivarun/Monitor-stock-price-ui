@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.stock.app.dao.StockViewDao;
 import com.stock.app.pojo.StockObject;
+import com.stock.app.pojo.StockPriceHistoryObject;
 
 @Service
 public class StockViewService {
@@ -27,6 +28,11 @@ public class StockViewService {
 	public boolean deleteCompany(String action, String symbol) {
 		// TODO Auto-generated method stub
 		return dao.deleteCompany(action,symbol);
+	}
+	
+	public List<StockPriceHistoryObject> getCompany(String action, String symbol) {
+		// TODO Auto-generated method stub
+		return dao.getCompany(action,symbol);
 	}
 
 }

@@ -205,68 +205,38 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Monitors Stock Price
+                            Monitors Stock Price of ${company}
                             <small></small>
                         </h1>
                         
                     </div>
                 </div>
                 <!-- /.row -->
-                <div class="row">
-                <form class="form-horizontal" name="addCompany" action="addCompany" method="GET">
-                <div class="col-lg-4">
-                
-                <input class="form-control" name="symbol" placeholder="Add company to the system">
-                
-                </div>
-                <div class="col-lg-2">
-                <button type="submit" class="btn btn-default">Add Company</button>
-                </div>
-                </form>
-                </div>
-                <br>
-                <div class="row">
-                <h2>${resultOfGetCompany}</h2>
-                    <div class="col-lg-6">
+					
+				<div class="row">
+					 <div class="col-lg-6">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
+							<table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Company ticker symbol</th>
-                                        <th>Company name</th>
-                                        <th>Current price</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>Time</th>
+                                        <th>Price</th>
+                                        
                                     </tr>
                                 </thead>
-                                <c:forEach items="${result}" var="stockObject" varStatus="stock">
+                                <c:forEach items="${resultOfGetCompany}" var="stockObject" varStatus="stock">
                                 <tbody>
                                     <tr>
-                                        <td><c:out value="${stockObject.symbol}" /></td>
-                                        <td><c:out value="${stockObject.companyName}" /></td>
-                                        <td><c:out value="${stockObject.price}" /></td>
-                                        <td>
-                                        <form class="form-horizontal" name="deleteCompany" action="deleteCompany" method="GET">
-                                        <button type="submit" name="IdToDelete" value ="<c:out value="${stockObject.symbol}" />" class="btn btn-danger">
-								          <span class="glyphicon glyphicon-remove"></span>
-								        </button>
-								        </form>
-								        </td>
-								        <td>
-                                        <form class="form-horizontal" name="getCompany" action="getCompany" method="GET">
-                                        <button type="submit" name="IdToShow" value ="<c:out value="${stockObject.symbol}" />" class="btn btn-info">
-								          <span class="glyphicon glyphicon-list-alt"></span>
-								        </button>
-								        </form>
-								        </td>
+                                        <td><c:out value="${stockObject.lastUpdateTime}" /></td>
+                                        <td><c:out value="${stockObject.lastTradePrice}" /></td>
                                     </tr>
-                                 </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    </div>
-
+                                    </c:forEach>
+                                    </tbody>
+                         </table>
+                         </div>
+                         </div>
+                         </div>
+                                
             </div>
             <!-- /.container-fluid -->
 

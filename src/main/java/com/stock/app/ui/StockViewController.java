@@ -50,4 +50,12 @@ public class StockViewController {
 		 	model.addAttribute("result", service.getAllCompanies("getAllCompanies"));
 		    return "home";
 		   }
+	 	
+	 	@RequestMapping("/getCompany")
+		   public String getCompany(@RequestParam(value="IdToShow") String symbol,ModelMap model) {
+	 		
+	 		model.addAttribute("resultOfGetCompany", service.getCompany("getCompany",symbol));
+	 		model.addAttribute("company", symbol);
+		    return "companyDetail";
+		   }
 }
