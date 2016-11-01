@@ -66,11 +66,11 @@
 	            width: 900,
 	            height: 500,
 	            hAxis: {
-	              format: 'M/d/yy h:m'
-	    
+	              format: 'M/d/yy h:m',
+	              gridlines: {count: 15}
 	            },
 	            vAxis: {
-	             
+	              gridlines: {count: 15}
 	            }
 	          };
 	  	data.addRows(dataForTable);

@@ -93,7 +93,6 @@ public class StockViewDao {
 	           StringBuilder sb = new StringBuilder();
 	           String line = null;
 	           while ((line = reader.readLine()) != null) {
-	        	   //System.out.println(line);
 	               sb.append(line + "\n");
 	           }
 	           outputString = sb.toString();
