@@ -3,7 +3,6 @@ package com.stock.app.dao;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.springframework.stereotype.Service;

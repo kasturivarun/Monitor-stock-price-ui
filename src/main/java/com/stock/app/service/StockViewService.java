@@ -11,28 +11,28 @@ import com.stock.app.pojo.StockPriceHistoryObject;
 
 @Service
 public class StockViewService {
-	
+
 	@Autowired
 	StockViewDao dao;
-	
+
 	public List<StockObject> getAllCompanies(String action) {
-		System.out.println("inside service");
+
 		return dao.getAllCompanies(action);
 	}
 
 	public boolean addNewCompany(String action, String symbol) {
-		
-		return dao.addCompany(action,symbol);
+
+		return dao.addCompany(action, symbol);
 	}
 
 	public boolean deleteCompany(String action, String symbol) {
 		// TODO Auto-generated method stub
-		return dao.deleteCompany(action,symbol);
+		return dao.deleteCompany(action, symbol);
 	}
-	
+
 	public List<StockPriceHistoryObject> getCompany(String action, String symbol) {
 		// TODO Auto-generated method stub
-		return dao.getCompany(action,symbol);
+		return dao.getCompany(action, symbol);
 	}
 
 }

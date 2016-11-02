@@ -27,9 +27,8 @@ public class StockViewDao {
 
 	public List<StockObject> getAllCompanies(String action) {
 		
-		System.out.println("inside dao");
 		List<StockObject> output = new ArrayList<StockObject>();
-		InputStream in = conn.getConnection(action,"GET");
+		InputStream in = conn.getConnection("company","GET");
 		String outputString = "";
        try{
            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
@@ -61,7 +60,7 @@ public class StockViewDao {
 	public boolean addCompany(String action, String symbol) {
 
 		String outputString = "";
-		String url = action+"?symbol="+symbol;
+		String url = "company"+"/"+symbol;
 		InputStream in = conn.getConnection(url,"POST");;
 		 try{
 	           BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
@@ -86,7 +85,7 @@ public class StockViewDao {
 	public boolean deleteCompany(String action, String symbol) {
 
 		String outputString = "";
-		String url = action+"?symbol="+symbol;
+		String url = "company"+"/"+symbol;
 		InputStream in = conn.getConnection(url,"DELETE");
 		 try{
 	           BufferedReader reader = new BufferedReader(new InputStreamReader(in, "iso-8859-1"), 8);
@@ -112,7 +111,7 @@ public class StockViewDao {
 		
 		List<StockPriceHistoryObject> output = new ArrayList<StockPriceHistoryObject>();
 		
-		String url = action+"?symbol="+symbol;
+		String url = "company"+"/"+symbol;
 		String outputString = "";
 		InputStream in = conn.getConnection(url,"GET");
        try{

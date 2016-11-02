@@ -3,12 +3,6 @@
  */
 package com.stock.app.ui;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,12 +22,19 @@ public class StockViewController {
 	@Autowired
 	StockViewService service;
 	
-	 	@RequestMapping("/getAllCompanies")
+	 	@RequestMapping("/")
 	   public String getAllCompanies(ModelMap model) {
-	 		System.out.println("inside controller");
+	 		
 	 	model.addAttribute("result", service.getAllCompanies("getAllCompanies"));
 	      return "home";
 	   }
+	 	
+	 	@RequestMapping("/getAllCompanies")
+		   public String getAllCompanies2(ModelMap model) {
+		 		
+		 	model.addAttribute("result", service.getAllCompanies("getAllCompanies"));
+		      return "home";
+		   }
 	 	
 	 	@RequestMapping("/addCompany")
 		   public String addNewCompany(@RequestParam(value="symbol") String symbol,ModelMap model) {

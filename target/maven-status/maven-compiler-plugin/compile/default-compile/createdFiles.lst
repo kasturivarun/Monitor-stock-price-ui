@@ -1,0 +1,6 @@
+com\stock\app\service\StockViewService.class
+com\stock\app\pojo\StockObject.class
+com\stock\app\dao\StockViewDao.class
+com\stock\app\pojo\StockPriceHistoryObject.class
+com\stock\app\dao\StockRestConnection.class
+com\stock\app\ui\StockViewController.class
